@@ -1,23 +1,35 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="LunchCheck">
+<html ng-app="ShoppingListCheckOff">
 <head>
-  <meta charset="UTF-8">
-  <title>Lunch Checker</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <meta charset="utf-8">
+  <title>Shopping List Check Off</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
   <script src="app.js"></script>
-  <style>
-    .message {
-      color: red;
-    }
-  </style>
 </head>
-<body ng-controller="LunchCheckController">
-  <h1>Lunch Checker</h1>
-  <div>
-    <p>Enter comma-separated items you usually eat for lunch:</p>
-    <input type="text" placeholder="e.g., item1, item2, item3" ng-model="lunchItems">
-    <button ng-click="checkLunchItems()">Check If Too Much</button>
-    <p class="message" ng-show="message">{{ message }}</p>
+<body ng-controller="ToBuyController as buyCtrl">
+  <h1>Shopping List Check Off</h1>
+  <div class="container">
+    <h2>To Buy:</h2>
+    <ul>
+      <li ng-repeat="item in buyCtrl.toBuyList">
+        Buy {{ item.quantity }} {{ item.name }}
+        <button ng-click="buyCtrl.buyItem($index)">Bought</button>
+      </li>
+    </ul>
+    <div class="message" ng-show="buyCtrl.toBuyList.length === 0">
+      Everything is bought!
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Already Bought:</h2>
+    <ul>
+      <li ng-repeat="item in buyCtrl.alreadyBoughtList">Bought {{ item.quantity }} {{ item.name }}</li>
+      <div class="message" ng-show="buyCtrl.alreadyBoughtList.length === 0">
+        Nothing bought yet
+      </div>
+    </ul>
   </div>
 </body>
 </html>
